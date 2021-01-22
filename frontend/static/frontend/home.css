@@ -128,6 +128,10 @@
 
 
 
+
+
+
+
 /* M----------------------- MY CUSTOM OUTLINE forms text input -----------------------*/
 /* Bordered input boxes with text moving */
 /* add custom-outlined to same class as input-field ie: className="input-field custom-outlined col s12" */
@@ -163,3 +167,42 @@
     border-left: 4px solid #fafafa;
     border-right: 4px solid #fafafa;
 }
+
+
+
+/* crypto search auto complete */
+
+/* .crypto-search-container, .crypto-search-container input {
+    color: white;
+} */
+/* .crypto-search-container input {
+    color: white;
+    border: 2px solid lightgrey !important;
+    border-radius: 4px;
+    padding: 0 15px 0 15px;
+    width: calc(100% - 2.5rem);
+    margin-bottom: 0;
+    transition: box-shadow, border-color 0.15s;
+} */
+
+
+/* .crypto-search-container i.prefix.active {
+    color: white !important;
+} */
+
+
+
+
+
+
+
+/* 
+#topbarsearch .input-field .prefix { 
+    width:0rem !important;    
+    }        
+#topbarsearch nav ul li:hover, nav ul li.active {
+        background-color: none !important;
+    }
+.input-field .prefix ~ input, .input-field .prefix ~ textarea, .input-field .prefix ~ label, .input-field .prefix ~ .validate ~ label, .input-field .prefix ~ .autocomplete-content{
+    margin-left: 1rem !important;
+    } */

@@ -24,7 +24,7 @@ const Register = props => {
 
     useEffect(() => {
         // v1
-        if (registerModalElement) {           
+        if (registerModalElement) {
             // storing response from M.Sidenav.init so we can gain access to functionality ie the .close()
             mInstance.current = M.Modal.init(registerModalElement.current, {
                 onOpenStart: () => clearFields(),
@@ -34,35 +34,33 @@ const Register = props => {
 
     }, []);
 
-    return (
-        <React.Fragment>        
-            <div id="modal-register" className="modal" ref={registerModalElement}>
-                <div className="modal-content">
-                    <h4>Create account</h4>
-                    <div className="row">
-                        <div className="input-field col s12">
-                            <input id="register-email" type="email" className="" value={email} onChange={(event) => setEmail(event.target.value)} onKeyUp={event => onEnter(event)}/>
-                            <label htmlFor="register-email">Email</label>                                       
-                            <span className="helper-text error">{emailError}</span>
-                        </div>
-                        <div className="input-field col s12">
-                            <input id="register-password" type="password" className="" value={password} onChange={(event) => setPassword(event.target.value)} onKeyUp={event => onEnter(event)}/>
-                            <label htmlFor="register-password">Password</label>
-                            <span className="helper-text error">{passwordError}</span>
-                        </div>
-                        <div className="input-field col s12">
-                            <input id="register-confirm-password" type="password" value={passwordConfirm} onChange={(event) => setPasswordConfirm(event.target.value)} onKeyUp={event => onEnter(event)}/> 
-                            <label htmlFor="register-confirm-password">Confirm password</label>
-                            <span className="helper-text error">{passwordConfirmError}</span>
-                        </div>
+    return (      
+        <div id="modal-register" className="modal" ref={registerModalElement}>
+            <div className="modal-content">
+                <h4>Create account</h4>
+                <div className="row">
+                    <div className="input-field col s12">
+                        <input id="register-email" type="email" className="" value={email} onChange={(event) => setEmail(event.target.value)} onKeyUp={event => onEnter(event)}/>
+                        <label htmlFor="register-email">Email</label>                                       
+                        <span className="helper-text error">{emailError}</span>
+                    </div>
+                    <div className="input-field col s12">
+                        <input id="register-password" type="password" className="" value={password} onChange={(event) => setPassword(event.target.value)} onKeyUp={event => onEnter(event)}/>
+                        <label htmlFor="register-password">Password</label>
+                        <span className="helper-text error">{passwordError}</span>
+                    </div>
+                    <div className="input-field col s12">
+                        <input id="register-confirm-password" type="password" value={passwordConfirm} onChange={(event) => setPasswordConfirm(event.target.value)} onKeyUp={event => onEnter(event)}/> 
+                        <label htmlFor="register-confirm-password">Confirm password</label>
+                        <span className="helper-text error">{passwordConfirmError}</span>
                     </div>
                 </div>
-                <div className="modal-footer">
-                    <button className="waves-effect waves-light btn red lighten-1 modal-close">Cancel</button>
-                    <button className="waves-effect waves-light btn" onClick={() => onSubmit()}>Register</button>            
-                </div>             
             </div>
-        </React.Fragment>
+            <div className="modal-footer">
+                <button className="waves-effect waves-light btn red lighten-1 modal-close">Cancel</button>
+                <button className="waves-effect waves-light btn" onClick={() => onSubmit()}>Register</button>            
+            </div>             
+        </div>
     );
 
     function onEnter(event) {

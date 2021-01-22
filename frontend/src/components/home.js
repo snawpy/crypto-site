@@ -11,6 +11,7 @@ import NavBarSide from './navigation/nav-bar-side';
 // Components Modals
 import Register from './register';
 import Login from './login';
+import Search from './search';
 
 //materialize
 // materialize seems to work, but might need to use css loader in babel when using live: https://stackoverflow.com/questions/35499842/how-to-use-materialize-css-with-react
@@ -82,8 +83,7 @@ const Home = props => {
     const [displayMode, setDisplayMode] = useState(page.cryptoList);
     const [loggedIn, setLoggedIn] = useState(false);
 
-    const [allCoins, setAllCoins] = useState(null);
-    const [filteredCoins, setFilteredCoins] = useState([]);    
+    const [allCoins, setAllCoins] = useState(null); 
     const [selectedCrypto, setSelectedCrypto] = useState(null);
 
     useEffect(() => {
@@ -99,7 +99,9 @@ const Home = props => {
         externalApi.allCoins().then(result =>{
             // to do update checks
             if (result && result.ok && result.data) {
-                setAllCoins(result.data);
+                // old endpoint returned list
+                // setAllCoins(result.data);
+                setAllCoins(result.data.coins);
                 // todo:
                 // maybe use async/await
             }
@@ -133,10 +135,6 @@ const Home = props => {
                 onSetDisplayMode={(value) => setDisplayMode(value)}
                 page={page}
                 displayMode={displayMode}
-                // allCoins={allCoins}
-                // filteredCoins={filteredCoins}
-                // onCryptoSelected={(event, value) => onCryptoSelected(event, value)}
-                // onFilterCoins={(event, allCoins) => filterCoins(event, allCoins)}
             />
 
             <NavBarSide 
@@ -147,14 +145,24 @@ const Home = props => {
                 displayMode={displayMode}
             />
 
-            <Login
-                setLoggedIn={setLoggedIn}
-            />
-
-            
-            <Register />
+            {/* <div className="input-field custom-outlined">
+                <input id="searchv2" type="text"></input>
+                <label htmlFor="searchv2">Search</label>
+            </div> */}
 
             {renderBody()}
+
+            <Login
+                setLoggedIn={setLoggedIn}
+            />            
+            <Register />
+
+            <Search 
+                allCoins={allCoins}
+                // filteredCoins={filteredCoins}
+                onCryptoSelected={(event, value) => onCryptoSelected(event, value)}
+                // onFilterCoins={(event, allCoins) => filterCoins(event, allCoins)}    
+            />
     
             <CryptoList 
                 display={displayMode == page.cryptoList}/>
@@ -182,7 +190,7 @@ const Home = props => {
         // get rid of this
         if (selectedCrypto) {
             return (
-                <div>
+                <div className="">
                     <h3>{selectedCrypto.name}</h3>
                 </div>
             );
@@ -217,24 +225,6 @@ const Home = props => {
     }
 
     // Functionality ------------------------------------------------------------------------
-
-
-    function filterCoins(event, allCoins) {
-        // todo: why are we storing filtered coins in state ?
-        const textInput = event.target.value;
-        const newCoinList = [];
-
-        for (const coin of allCoins) {
-            if (coin.symbol.toLowerCase().includes(textInput)) {
-                newCoinList.push(coin);
-            }
-            if (newCoinList.length >= 10) {
-                break;
-            }
-        }
-
-        setFilteredCoins(newCoinList);
-    }
 
 } 
 

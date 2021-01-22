@@ -6,21 +6,39 @@ import PropTypes from 'prop-types';
 import NavButton from './nav-button';
 import AccountDropDown from './drop-down';
 
+//trapshark.com good way of dealing with search bar
+// https://stackoverflow.com/questions/38959542/how-to-add-a-search-box-with-icon-to-the-navbar-using-materialize-css
+// https://ampersandacademy.com/tutorials/materialize-css/navbar-with-autocomplete-search-box
+// get it working nicer
+
 const NavBarTop = props => {
 
-        return (
-            <nav className="nav-extended">                
-                <div className="nav-wrapper">
-                    <a href="#" onClick={() => {if (props.displayMode !== props.page.cryptoList) props.onSetDisplayMode(props.page.cryptoList)}} className="brand-logo">My Crypto Gains</a>
-                    <a href="#" data-target="side-nav" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-                    
-                    <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        {renderAccountDropDownButton('account-top-nav-bar')}
-                        {renderButtons()}
-                    </ul>
+    const [email, setEmail] = useState('');
 
+        return (
+            <nav>                
+                <div className="nav-wrapper">
+                    <div className="col s12">
+
+                        <a href="#" onClick={() => {if (props.displayMode !== props.page.cryptoList) props.onSetDisplayMode(props.page.cryptoList)}} className="brand-logo">Kimoski</a>
+                        <a href="#" data-target="side-nav" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                        
+                        <ul id="nav-mobile" className="right hide-on-med-and-down">
+                            {renderAccountDropDownButton('account-top-nav-bar')}
+                            {renderButtons()}
+                        </ul>
+
+                        <ul className="right">
+                            <li>
+                                <div className="modal-trigger" data-target="modal-search">
+                                    <i className="material-icons prefix">search</i>
+                                </div>
+                            </li>
+                        </ul>
+
+                    </div>
                 </div>
-            </nav>
+            </nav>    
         );
 
     function renderAccountDropDownButton(id) {        
