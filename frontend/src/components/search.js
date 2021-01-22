@@ -81,6 +81,7 @@ const Search = props => {
     }
 
     function filterCoins() {
+        // DISABLE SEARCH UNTILL COINS HAVE LOADED TODO
 
         const searchTermFormatted = searchTerm.trim();        
         const filteredResults = [];
