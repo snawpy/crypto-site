@@ -45,7 +45,7 @@ const Search = props => {
                 {/* <h4>Search</h4> */}
                 <div className="input-field custom-outlined">
                     {/* <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => filterCoins(event.target.value)} ref={searchRef}></input> */}
-                    <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
+                    <input id="search-crypto" type="text" autoFocus={true} disable value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
                     <label htmlFor="search-crypto">Search</label>
 
                     {renderFilteredCoins()}
@@ -81,21 +81,22 @@ const Search = props => {
     }
 
     function filterCoins() {
-        // DISABLE SEARCH UNTILL COINS HAVE LOADED TODO
-
         const searchTermFormatted = searchTerm.trim();        
         const filteredResults = [];
 
-        for (const coin of props.allCoins) {
-            if (coin.symbol.toLowerCase().includes(searchTermFormatted) || coin.name.toLowerCase().includes(searchTermFormatted)) {
-                filteredResults.push(coin);
+        if (props.allCoins) {
+            for (let coin of props.allCoins) {
+                if (coin.symbol.toLowerCase().includes(searchTermFormatted) || coin.name.toLowerCase().includes(searchTermFormatted)) {
+                    filteredResults.push(coin);
+                }
+                if (filteredResults.length >= 10) {
+                    break;
+                }
             }
-            if (filteredResults.length >= 10) {
-                break;
-            }
+    
+            setFilteredCoins(filteredResults);
         }
 
-        setFilteredCoins(filteredResults);
     }
 
     function onOpen() {
