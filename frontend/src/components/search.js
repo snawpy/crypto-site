@@ -15,9 +15,7 @@ const Search = props => {
     const searchRef = useRef(null);
     const [searchTerm, setSearchTerm] = useState('');
 
-    const [filteredCoins, setFilteredCoins] = useState([]);  
-
-    // console.log(props.allCoins);
+    const [filteredCoins, setFilteredCoins] = useState([]);
 
     
 
