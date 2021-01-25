@@ -29,7 +29,7 @@ const Search = props => {
     }, [])
 
     useEffect(() => {
-        if (searchTerm) {
+        if (searchTerm && props.allCoins) {
             filterCoins();
         }
 
@@ -42,12 +42,10 @@ const Search = props => {
             <div className="modal-content">
                 {/* <h4>Search</h4> */}
                 <div className="input-field custom-outlined">
-                    {/* <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => filterCoins(event.target.value)} ref={searchRef}></input> */}
-                    <input id="search-crypto" type="text" autoFocus={true} disable value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
+                    <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
                     <label htmlFor="search-crypto">Search</label>
 
                     {renderFilteredCoins()}
-
 
                 </div>
             </div>
@@ -73,25 +71,24 @@ const Search = props => {
     function renderCoin(coin) {
         return (
             <a className="search-result-coin collection-item" href="#!" key={coin.id}>
-                <img src={coin.thumb} alt="" class="circle"></img> {coin.name} - {coin.symbol}
+                <img src={coin.thumb} alt="" className="circle"></img> {coin.name} - {coin.symbol}
             </a>
         );
     }
 
     function filterCoins() {
-        const searchTermFormatted = searchTerm.trim();        
+        const searchTermFormatted = searchTerm.trim().toLowerCase();      
         const filteredResults = [];
 
         if (props.allCoins) {
-            for (let coin of props.allCoins) {
-                if (coin.symbol.toLowerCase().includes(searchTermFormatted) || coin.name.toLowerCase().includes(searchTermFormatted)) {
+            for (let coin of props.allCoins) {                
+                if (coin.market_cap_rank !== null && (coin.symbol.toLowerCase().includes(searchTermFormatted) || coin.name.toLowerCase().includes(searchTermFormatted))) {
                     filteredResults.push(coin);
                 }
                 if (filteredResults.length >= 10) {
                     break;
                 }
-            }
-    
+            }    
             setFilteredCoins(filteredResults);
         }
 
