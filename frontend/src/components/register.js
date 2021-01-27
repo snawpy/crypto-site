@@ -39,17 +39,17 @@ const Register = props => {
             <div className="modal-content">
                 <h4>Create account</h4>
                 <div className="row">
-                    <div className="input-field col s12">
+                    <div className="input-field input-spacing col s12">
                         <input id="register-email" type="email" className="" value={email} onChange={(event) => setEmail(event.target.value)} onKeyUp={event => onEnter(event)}/>
                         <label htmlFor="register-email">Email</label>                                       
                         <span className="helper-text error">{emailError}</span>
                     </div>
-                    <div className="input-field col s12">
+                    <div className="input-field input-spacing col s12">
                         <input id="register-password" type="password" className="" value={password} onChange={(event) => setPassword(event.target.value)} onKeyUp={event => onEnter(event)}/>
                         <label htmlFor="register-password">Password</label>
                         <span className="helper-text error">{passwordError}</span>
                     </div>
-                    <div className="input-field col s12">
+                    <div className="input-field input-spacing col s12">
                         <input id="register-confirm-password" type="password" value={passwordConfirm} onChange={(event) => setPasswordConfirm(event.target.value)} onKeyUp={event => onEnter(event)}/> 
                         <label htmlFor="register-confirm-password">Confirm password</label>
                         <span className="helper-text error">{passwordConfirmError}</span>

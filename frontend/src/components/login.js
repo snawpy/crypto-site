@@ -44,13 +44,13 @@ const Login = props => {
                 <div className="modal-content">
                     <h4>Sign in</h4>
                     <div className="row">
-                        <div className="input-field col s12">
+                        <div className="input-field input-spacing col s12">
                             <input id="login-email" type="email" className="" value={userEmail} onChange={(event) => setUserEmail(event.target.value)} onKeyUp={event => onEnter(event)}/>
                             <label htmlFor="login-email">Email</label>                                       
                             <span className="helper-text error">{emailError}</span>
                         </div>
 
-                        <div className="input-field col s12">
+                        <div className="input-field input-spacing col s12">
                             <input id="login-password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} onKeyUp={event => onEnter(event)}/>
                             <label htmlFor="login-password">Password</label>
                             <span className="helper-text error">{passwordError}</span>

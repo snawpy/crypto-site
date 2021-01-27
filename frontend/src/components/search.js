@@ -41,14 +41,10 @@ const Search = props => {
     return (
         <div id="modal-search" className="modal" ref={searchModalElement}>
             <div className="modal-content">
-                {/* <h4>Search</h4> */}
                 <div className="input-field custom-outlined">
                     <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
-                    <label htmlFor="search-crypto">Search</label>
-
+                    <label htmlFor="search-crypto">Search for your coin</label>
                     {renderFilteredCoins()}
-                    {/* if props.coins empty. display something to let know still loading data */}
-
                 </div>
             </div>
         </div>
@@ -61,9 +57,9 @@ const Search = props => {
             const coins = filteredCoins.map(coin => renderCoin(coin));
 
             return (
-                <div className="search-result-list collection">
+                <ul className="search-result-list collection">
                     {coins}
-                </div>
+                </ul>
             );
         }
         else if (!props.allCoins && filteredCoins.length > 0) {
@@ -75,9 +71,9 @@ const Search = props => {
 
     function renderCoin(coin) {
         return (
-            <a className="search-result-coin collection-item" href="#!" key={coin.id} onClick={() => props.onCryptoSelected(coin)}>
-                <img src={coin.thumb} alt="" className="circle"></img> {coin.name} - {coin.symbol}
-            </a>
+            <li className="search-result-coin btn-large waves-effect"  key={coin.id} onClick={() => props.onCryptoSelected(coin)}>
+                <img src={coin.thumb} alt="" className="circle"></img> {coin.name} - {coin.symbol}                
+            </li>
         );
     }
 

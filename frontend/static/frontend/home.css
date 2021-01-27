@@ -96,6 +96,8 @@
 }
 
 
+
+
 /* ----------------------- Modals -----------------------*/
 
 .modal {
@@ -105,10 +107,10 @@
     padding-bottom: 0;
 }
 
-.modal-content div div {
-    /* todo: spacing between input fields, maybe switch back oince finished with modals */
-    margin-bottom: 0;
+.input-spacing {
+    margin-bottom: 0;  
 }
+
 
 .modal h4 {
     text-align: center;
@@ -127,9 +129,11 @@
 }
 
 
-
-
-
+/* ----------------------- Search ----------------------- */
+.search-result-coin {
+    width: 100%;
+    margin-bottom: 2px;
+}
 
 
 /* M----------------------- MY CUSTOM OUTLINE forms text input -----------------------*/
