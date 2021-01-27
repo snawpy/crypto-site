@@ -82,7 +82,6 @@ const Home = props => {
 
     const [displayMode, setDisplayMode] = useState(page.cryptoList);
     const [loggedIn, setLoggedIn] = useState(false);
-
     const [allCoins, setAllCoins] = useState(null); 
     const [selectedCrypto, setSelectedCrypto] = useState(null);
 
@@ -159,9 +158,7 @@ const Home = props => {
 
             <Search 
                 allCoins={allCoins}
-                // filteredCoins={filteredCoins}
-                onCryptoSelected={(event, value) => onCryptoSelected(event, value)}
-                // onFilterCoins={(event, allCoins) => filterCoins(event, allCoins)}    
+                onCryptoSelected={(event, value) => onCryptoSelected(event, value)} 
             />
     
             <CryptoList 
@@ -198,14 +195,11 @@ const Home = props => {
     }
 
 
-    // callbacks ------------------------------------------------------------------------
+    // Events ------------------------------------------------------------------------
 
 
-    function onCryptoSelected(event, value) {
-        console.log(value);
-        console.log("hehehehe");
-        setSelectedCrypto(value);
-        return 'clear';
+    function onCryptoSelected(coin) {
+        setSelectedCrypto(coin);
     }
 
     function onSignOut() {
@@ -224,7 +218,6 @@ const Home = props => {
         return;
     }
 
-    // Functionality ------------------------------------------------------------------------
 
 } 
 

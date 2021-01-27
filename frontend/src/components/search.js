@@ -14,12 +14,11 @@ const Search = props => {
     const mInstance = useRef(null);
     const searchRef = useRef(null);
     const [searchTerm, setSearchTerm] = useState('');
-
     const [filteredCoins, setFilteredCoins] = useState([]);
-
     
 
     useEffect(() => {
+    
         if (searchModalElement) {
             mInstance.current = M.Modal.init(searchModalElement.current, {
                 onOpenEnd: () => onOpen()
@@ -29,13 +28,15 @@ const Search = props => {
     }, [])
 
     useEffect(() => {
+
         if (searchTerm && props.allCoins) {
             filterCoins();
         }
 
-    }, [searchTerm])
+        // monitor allCoins change so updates results incase user starts and stops typing before data loads 
+    }, [searchTerm, props.allCoins]);
 
-
+    // Renders ------------------------------------------------------------------------    
 
     return (
         <div id="modal-search" className="modal" ref={searchModalElement}>
@@ -46,6 +47,7 @@ const Search = props => {
                     <label htmlFor="search-crypto">Search</label>
 
                     {renderFilteredCoins()}
+                    {/* if props.coins empty. display something to let know still loading data */}
 
                 </div>
             </div>
@@ -53,8 +55,8 @@ const Search = props => {
     )
 
     function renderFilteredCoins() {
-        
-        if (filteredCoins.length > 0) {
+
+        if (props.allCoins && filteredCoins.length > 0) {
 
             const coins = filteredCoins.map(coin => renderCoin(coin));
 
@@ -64,17 +66,30 @@ const Search = props => {
                 </div>
             );
         }
+        else if (!props.allCoins && filteredCoins.length > 0) {
+            return renderLoading();
+        }
 
         return null;
     }
 
     function renderCoin(coin) {
         return (
-            <a className="search-result-coin collection-item" href="#!" key={coin.id}>
+            <a className="search-result-coin collection-item" href="#!" key={coin.id} onClick={() => props.onCryptoSelected(coin)}>
                 <img src={coin.thumb} alt="" className="circle"></img> {coin.name} - {coin.symbol}
             </a>
         );
     }
+
+    function renderLoading() {
+        return ( 
+            <div>
+                Loading Data..
+            </div>
+        )
+    }
+
+    // Functions  ------------------------------------------------------------------------   
 
     function filterCoins() {
         const searchTermFormatted = searchTerm.trim().toLowerCase();      
@@ -93,6 +108,8 @@ const Search = props => {
         }
 
     }
+
+    // Events ------------------------------------------------------------------------   
 
     function onOpen() {
         if (searchRef && searchRef.current) {
