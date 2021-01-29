@@ -22,7 +22,8 @@ const Search = props => {
     
         if (searchModalElement) {
             mInstance.current = M.Modal.init(searchModalElement.current, {
-                onOpenEnd: () => onOpen()
+                onOpenEnd: () => onOpen(),
+                onCloseEnd: () => setSearchTerm('')
             });
         }
 
@@ -91,16 +92,28 @@ const Search = props => {
     function filterCoins() {
         const searchTermFormatted = searchTerm.trim().toLowerCase();      
         const filteredResults = [];
+        const addedCoin = new Set();
 
         if (props.allCoins) {
             for (let coin of props.allCoins) {                
                 if (coin.market_cap_rank !== null && (coin.name.toLowerCase().startsWith(searchTermFormatted) || coin.symbol.toLowerCase().startsWith(searchTermFormatted))) {
                     filteredResults.push(coin);
+                    addedCoin.add(coin);
                 }
                 if (filteredResults.length >= 10) {
                     break;
                 }
-            }    
+            }
+            if (filteredResults.length < 10) {
+                for (let coin of props.allCoins) {                
+                    if (!addedCoin.has(coin) && coin.market_cap_rank !== null && (coin.name.toLowerCase().includes(searchTermFormatted) || coin.symbol.toLowerCase().includes(searchTermFormatted))) {
+                        filteredResults.push(coin);
+                    }
+                    if (filteredResults.length >= 10) {
+                        break;
+                    }
+                }
+            }
             setFilteredCoins(filteredResults);
         }
 
