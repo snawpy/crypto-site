@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 // Logic
 import * as utils from '../logic/utils';
 import * as api from '../logic/api';
+import * as externalApi from '../logic/external-api';
 // Materialize
 import M from 'materialize-css';
 
@@ -42,7 +43,7 @@ const Search = props => {
         <div id="modal-search" className="modal" ref={searchModalElement}>
             <div className="modal-content">
                 <div className="input-field custom-outlined">
-                    <input id="search-crypto" type="text" autoFocus={true} value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
+                    <input id="search-crypto" type="text" autoComplete="off"  value={searchTerm} onChange={(event) => setSearchTerm(event.target.value)} ref={searchRef}></input>
                     <label htmlFor="search-crypto">Search for your coin</label>
                     {renderFilteredCoins()}
                 </div>
@@ -71,7 +72,7 @@ const Search = props => {
 
     function renderCoin(coin) {
         return (
-            <li className="search-result-coin btn-large waves-effect"  key={coin.id} onClick={() => props.onCryptoSelected(coin)}>
+            <li className="search-result-coin btn-large waves-effect"  key={coin.id} onClick={() => onCryptoSelected(coin)}>
                 <img src={coin.thumb} alt="" className="circle"></img> {coin.name} - {coin.symbol}                
             </li>
         );
@@ -93,7 +94,7 @@ const Search = props => {
 
         if (props.allCoins) {
             for (let coin of props.allCoins) {                
-                if (coin.market_cap_rank !== null && (coin.symbol.toLowerCase().includes(searchTermFormatted) || coin.name.toLowerCase().includes(searchTermFormatted))) {
+                if (coin.market_cap_rank !== null && (coin.name.toLowerCase().startsWith(searchTermFormatted) || coin.symbol.toLowerCase().startsWith(searchTermFormatted))) {
                     filteredResults.push(coin);
                 }
                 if (filteredResults.length >= 10) {
@@ -111,6 +112,16 @@ const Search = props => {
         if (searchRef && searchRef.current) {
             searchRef.current.focus();            
         }
+    }
+
+    function onCryptoSelected(coin) {
+        // todo: consider adding loading state somewhere or move into then
+        mInstance.current.close();
+
+        externalApi.coinPrice(coin.id, ['usd', "gbp"]).then(result => {
+            coin.price = result.data[coin.id];            
+            props.onCryptoSelected(coin);
+        });
     }
 
 

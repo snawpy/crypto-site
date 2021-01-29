@@ -14,3 +14,10 @@ export function allCoins(coinsPerPage, page) {
     // page = 3;
     // return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${page}&sparkline=false`);
 }
+
+export function coinPrice(coinId, currencies) {
+
+    const coinsFormatted = currencies.join('%2C');
+
+    return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${coinsFormatted}`)
+}

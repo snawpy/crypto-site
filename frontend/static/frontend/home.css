@@ -135,6 +135,18 @@
     margin-bottom: 2px;
 }
 
+.coin-widgets-list {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
+}
+
+.coin-widget {
+    border: 2px solid black;
+    width: 200px;
+    padding: 10px;
+}
+
 
 /* M----------------------- MY CUSTOM OUTLINE forms text input -----------------------*/
 /* Bordered input boxes with text moving */

@@ -83,7 +83,7 @@ const Home = props => {
     const [displayMode, setDisplayMode] = useState(page.cryptoList);
     const [loggedIn, setLoggedIn] = useState(false);
     const [allCoins, setAllCoins] = useState(null); 
-    const [selectedCrypto, setSelectedCrypto] = useState(null);
+    const [selectedCrypto, setSelectedCrypto] = useState([]);
 
     useEffect(() => {
 
@@ -161,8 +161,8 @@ const Home = props => {
                 onCryptoSelected={(event, value) => onCryptoSelected(event, value)} 
             />
     
-            <CryptoList 
-                display={displayMode == page.cryptoList}/>
+            {/* <CryptoList 
+                display={displayMode == page.cryptoList}/> */}
 
             {displayMode == page.profile && 
                 <Profile display={displayMode == page.profile} />
@@ -183,15 +183,28 @@ const Home = props => {
     // Renders ------------------------------------------------------------------------    
 
     function renderBody() {
-        // why is this here and not in the crypto page ? weird champ
-        // get rid of this
-        if (selectedCrypto) {
+        // todo: move to seperate component
+        if (selectedCrypto && selectedCrypto.length > 0) {
+
+            const coins = selectedCrypto.map(coin => renderCoinWidget(coin));
+
             return (
-                <div className="">
-                    <h3>{selectedCrypto.name}</h3>
+                <div className="coin-widgets-list">
+                    {coins}
                 </div>
-            );
+            )
         }
+    }
+
+    function renderCoinWidget(coin) {
+        return (
+            <div className="coin-widget">
+                <h3>{coin.name}</h3>
+                <div>${coin.price.usd}</div>
+                <div>£{coin.price.gbp}</div>
+                <div>Rank: {coin.market_cap_rank}</div>
+            </div>
+        )
     }
 
 
@@ -199,7 +212,10 @@ const Home = props => {
 
 
     function onCryptoSelected(coin) {
-        setSelectedCrypto(coin);
+
+
+
+        setSelectedCrypto([...selectedCrypto, coin]);
     }
 
     function onSignOut() {
