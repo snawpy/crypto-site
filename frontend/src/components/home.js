@@ -212,10 +212,10 @@ const Home = props => {
 
 
     function onCryptoSelected(coin) {
-
-
-
         setSelectedCrypto([...selectedCrypto, coin]);
+        
+        // todo
+        // setLoad(false)
     }
 
     function onSignOut() {

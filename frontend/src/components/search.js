@@ -131,6 +131,9 @@ const Search = props => {
         // todo: consider adding loading state somewhere or move into then
         mInstance.current.close();
 
+        //to add:
+        // props.setLoad(true)
+
         externalApi.coinPrice(coin.id, ['usd', "gbp"]).then(result => {
             coin.price = result.data[coin.id];            
             props.onCryptoSelected(coin);
