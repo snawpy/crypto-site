@@ -9,7 +9,12 @@ const CryptoViewer = (props) => {
         return (
             <div className="coin-viewer">
                 <h3>{props.coin.name}</h3>
-                <p class="flow-text">Coming Soon!</p>
+                <p className="flow-text">Coming Soon!</p>
+
+                {/* just import M from home seems to work */}
+                <button className="btn-large waves-effect" onClick={() => M.toast({html: 'Coming soon!'})}>
+                    Add To Portfolio
+                </button>
             </div>
         )
     }

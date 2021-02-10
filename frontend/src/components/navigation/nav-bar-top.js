@@ -60,6 +60,14 @@ const NavBarTop = props => {
         return (
             <React.Fragment>
                 <NavButton 
+                    text={'Portfolio'}
+                    display={true}
+                    class="sidenav-close"
+                    onClick={()=>M.toast({html: 'Coming soon!'})}
+                    dataTarget="modal-register"
+                />
+
+                <NavButton 
                     text={'Register'}
                     display={!props.loggedIn}
                     class="modal-trigger sidenav-close"
