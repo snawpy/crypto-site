@@ -23,7 +23,7 @@ const Search = props => {
         if (searchModalElement) {
             mInstance.current = M.Modal.init(searchModalElement.current, {
                 onOpenEnd: () => onOpen(),
-                onCloseEnd: () => setSearchTerm('')
+                onCloseEnd: () => onClose()
             });
         }
 
@@ -31,12 +31,12 @@ const Search = props => {
 
     useEffect(() => {
 
-        if (searchTerm && props.allCoins) {
+        if (searchTerm && props.coins) {
             filterCoins();
         }
 
         // monitor allCoins change so updates results incase user starts and stops typing before data loads 
-    }, [searchTerm, props.allCoins]);
+    }, [searchTerm, props.coins]);
 
     // Renders ------------------------------------------------------------------------    
 
@@ -54,7 +54,7 @@ const Search = props => {
 
     function renderFilteredCoins() {
 
-        if (props.allCoins && filteredCoins.length > 0) {
+        if (props.coins && filteredCoins.length > 0) {
 
             const coins = filteredCoins.map(coin => renderCoin(coin));
 
@@ -64,7 +64,7 @@ const Search = props => {
                 </ul>
             );
         }
-        else if (!props.allCoins && filteredCoins.length > 0) {
+        else if (!props.coins && searchTerm) {
             return renderLoading();
         }
 
@@ -94,8 +94,8 @@ const Search = props => {
         const filteredResults = [];
         const addedCoin = new Set();
 
-        if (props.allCoins) {
-            for (let coin of props.allCoins) {                
+        if (props.coins) {
+            for (let coin of props.coins) {                
                 if (coin.market_cap_rank !== null && (coin.name.toLowerCase().startsWith(searchTermFormatted) || coin.symbol.toLowerCase().startsWith(searchTermFormatted))) {
                     filteredResults.push(coin);
                     addedCoin.add(coin);
@@ -105,7 +105,7 @@ const Search = props => {
                 }
             }
             if (filteredResults.length < 10) {
-                for (let coin of props.allCoins) {                
+                for (let coin of props.coins) {                
                     if (!addedCoin.has(coin) && coin.market_cap_rank !== null && (coin.name.toLowerCase().includes(searchTermFormatted) || coin.symbol.toLowerCase().includes(searchTermFormatted))) {
                         filteredResults.push(coin);
                     }
@@ -126,6 +126,10 @@ const Search = props => {
             searchRef.current.focus();            
         }
     }
+    function onClose() {
+        setSearchTerm('');
+        setFilteredCoins([]);
+    }
 
     function onCryptoSelected(coin) {
         // todo: consider adding loading state somewhere or move into then
@@ -134,10 +138,11 @@ const Search = props => {
         //to add:
         // props.setLoad(true)
 
-        externalApi.coinPrice(coin.id, ['usd', "gbp"]).then(result => {
-            coin.price = result.data[coin.id];            
-            props.onCryptoSelected(coin);
-        });
+        // externalApi.coinPrice(coin.id, ['usd', "gbp"]).then(result => {
+        //     coin.price = result.data[coin.id];            
+        //     props.onCryptoSelected(coin);
+        // });
+        props.onCryptoSelected(coin);
     }
 
 

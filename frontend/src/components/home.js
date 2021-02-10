@@ -3,24 +3,27 @@ import React, { useState, useEffect } from "react";
 // Component Pages
 import Profile from './account';
 import CryptoList from './crypto-list';
+import CryptoViewer from './crypto-viewer';
 import Password from './password';
 import DeleteAccount from './delete-account';
 // Components
 import NavBarTop from './navigation/nav-bar-top';
 import NavBarSide from './navigation/nav-bar-side';
+import Widgets from './widgets';
 // Components Modals
 import Register from './register';
 import Login from './login';
 import Search from './search';
+// Logic
+// import * as api from '../logic/api';
+import * as externalApi from '../logic/external-api';
+import * as cookies from '../logic/cookies';
 
 //materialize
 // materialize seems to work, but might need to use css loader in babel when using live: https://stackoverflow.com/questions/35499842/how-to-use-materialize-css-with-react
 // import M from 'materialize-css';
 
-// Logic
-// import * as api from '../logic/api';
-import * as externalApi from '../logic/external-api';
-import * as cookies from '../logic/cookies';
+
 
 // https://www.freecodecamp.org/news/the-react-cheatsheet-for-2020/
 // TODO NEXT:
@@ -75,14 +78,19 @@ const page = {
     profile: 0,
     cryptoList: 1,
     password: 2,
-    deleteAccount: 3
+    deleteAccount: 3,
+    cryptoViewer: 4,
+    widget: 5
 }
 
 const Home = props => {
 
     const [displayMode, setDisplayMode] = useState(page.cryptoList);
+
     const [loggedIn, setLoggedIn] = useState(false);
-    const [allCoins, setAllCoins] = useState(null); 
+    const [searchCoins, setSearchCoins] = useState(null); 
+    const [cryptoListCoins, setCryptoListCoins] = useState(null); 
+
     const [selectedCrypto, setSelectedCrypto] = useState([]);
 
     useEffect(() => {
@@ -91,21 +99,24 @@ const Home = props => {
         // M.AutoInit();
 
         if (cookies.getUserToken()) {
-            // console.log("changing to logged in");
             setLoggedIn(true);
         }
 
-        externalApi.allCoins().then(result =>{
+        // use for cryptoList (provides more data per coin)
+        externalApi.coinsPaginated(100, 1).then(result => {
+            console.log(result);
+            setCryptoListCoins(result.data)
+        });
+
+
+        // forsearch
+        externalApi.allCoins().then(result => {
             // to do update checks
             if (result && result.ok && result.data) {
-                // old endpoint returned list
-                // setAllCoins(result.data);
-                setAllCoins(result.data.coins);
-                // todo:
-                // maybe use async/await
+                setSearchCoins(result.data.coins);
             }
             else {
-                //todo: do something here
+                //todo: do something here to let user know whats happening
                 console.log("error loading coins");
             }
         })
@@ -128,82 +139,78 @@ const Home = props => {
 
     return (
         <React.Fragment>
-            <NavBarTop
-                loggedIn={loggedIn}
-                onSignOut={() => onSignOut()}
-                onSetDisplayMode={(value) => setDisplayMode(value)}
-                page={page}
-                displayMode={displayMode}
-            />
-
-            <NavBarSide 
-                loggedIn={loggedIn}
-                onSignOut={() => onSignOut()}
-                onSetDisplayMode={(value) => setDisplayMode(value)}
-                page={page}
-                displayMode={displayMode}
-            />
-
-            {/* <div className="input-field custom-outlined">
-                <input id="searchv2" type="text"></input>
-                <label htmlFor="searchv2">Search</label>
-            </div> */}
-
-            {renderBody()}
-
-            <Login
-                setLoggedIn={setLoggedIn}
-            />            
-            <Register />
-
-            <Search 
-                allCoins={allCoins}
-                onCryptoSelected={(event, value) => onCryptoSelected(event, value)} 
-            />
-    
-            {/* <CryptoList 
-                display={displayMode == page.cryptoList}/> */}
-
-            {displayMode == page.profile && 
-                <Profile display={displayMode == page.profile} />
-            }
-
-            {displayMode == page.password &&
-                <Password />
-            }
-
-            {displayMode == page.deleteAccount &&
-                <DeleteAccount />
-            }   
-
+            {renderNavBars()}
+            {renderPages()}
+            {renderModals()}
         </React.Fragment>
     );
 
-
     // Renders ------------------------------------------------------------------------    
+    function renderNavBars() {
+        return (
+            <React.Fragment>
+                <NavBarTop
+                    loggedIn={loggedIn}
+                    onSignOut={() => onSignOut()}
+                    onSetDisplayMode={(value) => setDisplayMode(value)}
+                    page={page}
+                    displayMode={displayMode}
+                />
 
-    function renderBody() {
-        // todo: move to seperate component
-        if (selectedCrypto && selectedCrypto.length > 0) {
-
-            const coins = selectedCrypto.map(coin => renderCoinWidget(coin));
-
-            return (
-                <div className="coin-widgets-list">
-                    {coins}
-                </div>
-            )
-        }
+                <NavBarSide 
+                    loggedIn={loggedIn}
+                    onSignOut={() => onSignOut()}
+                    onSetDisplayMode={(value) => setDisplayMode(value)}
+                    page={page}
+                    displayMode={displayMode}
+                />
+            </React.Fragment>
+        )
     }
 
-    function renderCoinWidget(coin) {
+    function renderPages() {
         return (
-            <div className="coin-widget">
-                <h3>{coin.name}</h3>
-                <div>${coin.price.usd}</div>
-                <div>£{coin.price.gbp}</div>
-                <div>Rank: {coin.market_cap_rank}</div>
-            </div>
+            <React.Fragment>
+                {displayMode === page.profile && 
+                    <Profile display={displayMode === page.profile} />}
+
+                {displayMode === page.password && 
+                    <Password />}
+
+                {displayMode === page.deleteAccount &&
+                    <DeleteAccount />}   
+
+                <CryptoList 
+                    display={displayMode === page.cryptoList}
+                    coins={cryptoListCoins}
+                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />
+
+                <CryptoViewer
+                    display={displayMode === page.cryptoViewer} 
+                    coin={selectedCrypto}/>
+
+                {/* {(displayMode === page.widget) &&
+                    <Widgets 
+                        selectedCrypto={selectedCrypto}
+                    />
+                } */}
+            
+            </React.Fragment>
+        )
+    }
+
+    function renderModals() {
+        return (
+            <React.Fragment>                
+                <Login
+                    setLoggedIn={setLoggedIn} />     
+                       
+                <Register />
+                
+                <Search 
+                    coins={searchCoins}
+                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />
+            </React.Fragment>
         )
     }
 
@@ -212,10 +219,14 @@ const Home = props => {
 
 
     function onCryptoSelected(coin) {
-        setSelectedCrypto([...selectedCrypto, coin]);
-        
-        // todo
-        // setLoad(false)
+
+        // externalApi.coinPrice(coin.id, ["usd"]).then(result => {
+        //     console.log(result);
+        // })
+
+        setSelectedCrypto(coin);
+        setDisplayMode(page.cryptoViewer);
+
     }
 
     function onSignOut() {

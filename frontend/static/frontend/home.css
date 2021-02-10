@@ -7,7 +7,23 @@
 } */
 
 
-/* ----------------------- Materialize below -----------------------*/
+/* ----------------------- Crypto List -----------------------*/
+.coin-list-container {
+    margin: 10px 50px 50px 50px;
+    overflow: auto;
+}
+.crypto-list-coin-image {
+    height: 25px;
+}
+.coin-list-coin-symbol {
+    color: lightgray;
+}
+.coin-list-coin-name-group {
+    cursor: pointer;
+}
+tr, td {
+    padding: 10px 5px;
+}
 
 /* ----------------------- Navigation -----------------------*/
 .nav-wrapper div {
@@ -143,10 +159,40 @@
 }
 
 .coin-widget {
-    border: 2px solid black;
-    width: 200px;
+    border: 1px solid black;
+    width: 400px;
     padding: 10px;
+    border-radius: 6px;
+    box-shadow: black 0px 0px 2px 1px;
+    background-color: #26a69a;
+    color: white;
+
+    display: grid;
+    grid-template-areas: 
+        'name price value'
+        'name price quantity';
+    grid-gap: 2px;
+    align-items: center;
+    text-align: center;
 }
+
+/* .coin-widget > div {
+    border: 2px solid red;
+} */
+
+.coin-widget-name {
+    grid-area: name;
+}
+.coin-widget-price {
+    grid-area: price;
+}
+.coin-widget-value {
+    grid-area: value;
+}
+.coin-widget-quantity {
+    grid-area: quantity;
+}
+
 
 
 /* M----------------------- MY CUSTOM OUTLINE forms text input -----------------------*/

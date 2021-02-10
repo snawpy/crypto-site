@@ -1,23 +1,24 @@
 import * as requests from './requests';
 
-export function allCoins(coinsPerPage, page) {
-
-
-    // all coins lame order
-    // return requests.GetAnonymous('https://api.coingecko.com/api/v3/coins/list');
-
+export function allCoins() {
     // what coingecko uses on their own site, can't find this in api docs though, returns obj very different layout to other endpoints
     // seems best ordered result and all coins
     return requests.GetAnonymous('https://api.coingecko.com/api/v3/search?locale=en');
-
-    // coinsPerPage = 250;
-    // page = 3;
-    // return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${page}&sparkline=false`);
 }
 
-export function coinPrice(coinId, currencies) {
+export function coinsPaginated(coinsPerPage, page) {
+    // max 250 per page
+    return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${coinsPerPage}&page=${page}&sparkline=false`);
+}
 
-    const coinsFormatted = currencies.join('%2C');
+export function allCoinsBasic() {
+    // todo remove if not planning to use
+    return requests.GetAnonymous('https://api.coingecko.com/api/v3/coins/list');
+}
+
+export function coinPrice(coinId, currenciesList) {
+
+    const coinsFormatted = currenciesList.join('%2C');
 
     return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${coinsFormatted}`)
 }

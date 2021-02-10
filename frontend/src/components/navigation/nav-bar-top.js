@@ -6,10 +6,6 @@ import PropTypes from 'prop-types';
 import NavButton from './nav-button';
 import AccountDropDown from './drop-down';
 
-//trapshark.com good way of dealing with search bar
-// https://stackoverflow.com/questions/38959542/how-to-add-a-search-box-with-icon-to-the-navbar-using-materialize-css
-// https://ampersandacademy.com/tutorials/materialize-css/navbar-with-autocomplete-search-box
-// get it working nicer
 
 const NavBarTop = props => {
 
