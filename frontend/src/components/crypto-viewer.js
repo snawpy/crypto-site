@@ -28,7 +28,7 @@ const CryptoViewer = (props) => {
 
 
 // CryptoViewer.propTypes = {
-
+// todo
 // };
 
 

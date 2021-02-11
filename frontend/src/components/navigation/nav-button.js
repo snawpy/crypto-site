@@ -25,6 +25,9 @@ const NavButton = (props) => {
 
 }
 
+// todo
+// NavButton.PropTypes = {
+// };
 
 
 export default NavButton;

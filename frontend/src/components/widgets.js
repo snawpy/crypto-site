@@ -7,7 +7,6 @@ import PropTypes from 'prop-types';
 
 const Widgets = props => {
 
-
     if (props.selectedCrypto && props.selectedCrypto.length > 0) {
 
         const coins = props.selectedCrypto.map(coin => renderCoinWidget(coin));
@@ -20,9 +19,6 @@ const Widgets = props => {
     }
 
     return null;
-
-
-
 
     function renderCoinWidget(coin) {
 
@@ -52,5 +48,9 @@ const Widgets = props => {
     }
 
 }
+
+// todo
+// Widgets.PropTypes = {
+// };
 
 export default Widgets;

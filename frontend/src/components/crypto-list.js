@@ -63,7 +63,7 @@ const CryptoList = (props) => {
 
 
 // CryptoList.propTypes = {
-
+// todo
 // };
 
 

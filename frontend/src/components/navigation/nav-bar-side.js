@@ -74,7 +74,6 @@ const NavBarSide = props => {
                     text={'Log Out'}
                     display={props.loggedIn}
                     onClick={() => props.onSignOut(true)}
-                    // onClick={() => onSignOut()}
                     class={"sidenav-close"}
                 />
             </React.Fragment>
@@ -92,5 +91,9 @@ const NavBarSide = props => {
         }
     }
 }
+
+// todo
+// NavBarSide.PropTypes = {
+// };
 
 export default NavBarSide;

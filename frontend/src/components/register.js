@@ -9,7 +9,6 @@ import M from 'materialize-css';
 
 const Register = props => {
 
-    // v1
     const registerModalElement = useRef(null);
     const mInstance = useRef(null);
 
@@ -23,9 +22,7 @@ const Register = props => {
 
 
     useEffect(() => {
-        // v1
         if (registerModalElement) {
-            // storing response from M.Sidenav.init so we can gain access to functionality ie the .close()
             mInstance.current = M.Modal.init(registerModalElement.current, {
                 onOpenStart: () => clearFields(),
                 onCloseEnd: () => clearFields()
@@ -171,6 +168,8 @@ const Register = props => {
 
 }
 
-
+// todo
+// Register.PropTypes = {
+// };
 
 export default Register;

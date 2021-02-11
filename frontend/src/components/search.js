@@ -137,16 +137,15 @@ const Search = props => {
 
         //to add:
         // props.setLoad(true)
-
-        // externalApi.coinPrice(coin.id, ['usd', "gbp"]).then(result => {
-        //     coin.price = result.data[coin.id];            
-        //     props.onCryptoSelected(coin);
-        // });
+        
         props.onCryptoSelected(coin);
     }
 
 
 }
 
+// todo
+// Search.PropTypes = {
+// };
 
 export default Search;

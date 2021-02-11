@@ -140,9 +140,10 @@ const Login = props => {
         // modal text fields keep active styling if closed with text in them, even when clearing them 
         M.updateTextFields();
     }
-
-
-
 }
+
+// todo
+// Login.PropTypes = {
+// };
 
 export default Login;

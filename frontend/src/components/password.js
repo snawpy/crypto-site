@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 // Logic
 import * as api from '../logic/api';
 // Materialize
-// import M from 'materialize-css';
+import M from 'materialize-css';
 
 const Password = props => {
 
@@ -119,8 +119,6 @@ const Password = props => {
                         classes: "rounded"
                     });
                 }
-
-
             })
             .catch(error => {
                 console.log("error");
@@ -134,5 +132,9 @@ const Password = props => {
 
     }
 }
+
+// todo
+// Password.PropTypes = {
+// };
 
 export default Password;
