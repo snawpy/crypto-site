@@ -1,6 +1,8 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+// Components
+import CryptoChart from './crypto-chart';
 
 
 const CryptoViewer = (props) => {
@@ -15,6 +17,8 @@ const CryptoViewer = (props) => {
                 <button className="btn-large waves-effect" onClick={() => M.toast({html: 'Coming soon!'})}>
                     Add To Portfolio
                 </button>
+
+                <CryptoChart />
             </div>
         )
     }

@@ -22,3 +22,7 @@ export function coinPrice(coinId, currenciesList) {
 
     return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${coinsFormatted}`)
 }
+
+export function coinPricesForChart() {
+    return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/bitcoin/market_chart?vs_currency=USD&days=7`);
+}

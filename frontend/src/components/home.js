@@ -142,7 +142,6 @@ const Home = props => {
     // Initialise -------------------------------------------------------------------
     function loadCryptoListCoins() {
         externalApi.coinsPaginated(100, 1).then(result => {
-            console.log(result);
             setCryptoListCoins(result.data)
         });
     }

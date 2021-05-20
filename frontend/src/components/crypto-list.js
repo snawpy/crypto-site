@@ -45,7 +45,10 @@ const CryptoList = (props) => {
                 <td>
                     <div onClick={() => props.onCryptoSelected(coin)} className="coin-list-coin-name-group">
                         <img src={coin.image} alt="" className="crypto-list-coin-image"></img>
-                        {coin.name} <span className="coin-list-coin-symbol">{coin.symbol.toUpperCase()}</span>
+                        <span>
+                            <span>{coin.name}</span> <span className="coin-list-coin-symbol">{coin.symbol.toUpperCase()}</span>
+                        </span>
+                        
                     </div>
                 </td>
                 <td>${coin.current_price.toLocaleString()}</td>
