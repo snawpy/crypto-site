@@ -18,7 +18,7 @@ const CryptoViewer = (props) => {
                     Add To Portfolio
                 </button>
 
-                <CryptoChart />
+                <CryptoChart coin={props.coin}/>
             </div>
         )
     }

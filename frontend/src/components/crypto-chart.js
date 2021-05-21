@@ -34,7 +34,7 @@ const CryptoChart = (props) => {
     )
 
     function fetchChartData() {
-        externalApi.coinPricesForChart().then(result => {
+        externalApi.coinPricesForChart(props.coin.id).then(result => {
 
             if (result && result.data && result.data.prices) {
                 let times = [];
@@ -56,8 +56,6 @@ const CryptoChart = (props) => {
 
     function updateChart() {
         const ctx = chartContainer.current.getContext('2d');
-        ctx.height = 400;
-        ctx.width = 400;
         new Chart(ctx, {
             type: 'line',
             data: {
