@@ -9,7 +9,6 @@ import DeleteAccount from './delete-account';
 // Components
 import NavBarTop from './navigation/nav-bar-top';
 import NavBarSide from './navigation/nav-bar-side';
-import Widgets from './widgets';
 // Components Modals
 import Register from './register';
 import Login from './login';
@@ -19,6 +18,8 @@ import Search from './search';
 import * as externalApi from '../logic/external-api';
 import * as cookies from '../logic/cookies';
 
+import { BrowserRouter as Router, Route, Switch, useLocation, Redirect } from "react-router-dom"; 
+
 const page = {
     profile: 0,
     cryptoList: 1,
@@ -27,6 +28,11 @@ const page = {
     cryptoViewer: 4,
     widget: 5
 }
+
+// react router stuff
+// https://www.youtube.com/watch?v=EmUa_tcSM-k
+// https://reactrouter.com/web/example/url-params
+
 
 const Home = props => {
 
@@ -63,9 +69,11 @@ const Home = props => {
 
     return (
         <React.Fragment>
-            {renderNavBars()}
-            {renderPages()}
-            {renderModals()}
+            <Router>
+                {renderNavBars()}
+                {renderPages()}
+                {renderModals()}
+            </Router>
         </React.Fragment>
     );
 
@@ -93,37 +101,6 @@ const Home = props => {
         )
     }
 
-    function renderPages() {
-        return (
-            <React.Fragment>
-                {displayMode === page.profile && 
-                    <Profile display={displayMode === page.profile} />}
-
-                {displayMode === page.password && 
-                    <Password />}
-
-                {displayMode === page.deleteAccount &&
-                    <DeleteAccount />}   
-
-                <CryptoList 
-                    display={displayMode === page.cryptoList}
-                    coins={cryptoListCoins}
-                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />
-
-                <CryptoViewer
-                    display={displayMode === page.cryptoViewer} 
-                    coin={selectedCrypto}/>
-
-                {/* {(displayMode === page.widget) &&
-                    <Widgets 
-                        selectedCrypto={selectedCrypto}
-                    />
-                } */}
-            
-            </React.Fragment>
-        )
-    }
-
     function renderModals() {
         return (
             <React.Fragment>                
@@ -139,8 +116,68 @@ const Home = props => {
         )
     }
 
+    function renderPages() {
+        // console.log(loggedIn);
+        return (
+            <React.Fragment>            
+                    <Switch>
+
+                        <Route exact path="/">
+                            <CryptoList
+                                coins={cryptoListCoins}
+                                onCryptoSelected={(coin) => onCryptoSelected(coin)} />
+                        </Route>
+
+                        <Route exact path="/coins/:coin">
+                            <CryptoViewer coin={selectedCrypto} />
+                        </Route>
+
+                        <Route exact path="/account">
+                            {loggedIn ? <Profile loggedIn={loggedIn}/> : <div>hehe</div>}
+                            {/* {!loggedIn &&                             
+                                <CryptoList
+                                    coins={cryptoListCoins}
+                                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />} */}
+                        </Route>
+
+                        <Route exact path="/password">                            
+                            {loggedIn && <Password loggedIn={loggedIn}/>}
+                            {!loggedIn &&                             
+                                <CryptoList
+                                    coins={cryptoListCoins}
+                                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
+                        </Route>
+
+                        <Route exact path="/delete-account">                            
+                            {loggedIn && <DeleteAccount loggedIn={loggedIn}/>}
+                            {!loggedIn &&                             
+                                <CryptoList
+                                    coins={cryptoListCoins}
+                                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
+                        </Route> 
+
+
+                    </Switch>
+
+            </React.Fragment>
+        )
+    }
+
+    function renderIfLoggedIn(page) {
+        if (loggedIn) {
+            return page;
+        }
+
+        return (
+            <CryptoList
+                coins={cryptoListCoins}
+                onCryptoSelected={(coin) => onCryptoSelected(coin)} />
+        )
+    }
+
     // Initialise -------------------------------------------------------------------
     function loadCryptoListCoins() {
+        console.log("loading crypto again");
         externalApi.coinsPaginated(100, 1).then(result => {
             setCryptoListCoins(result.data)
         });

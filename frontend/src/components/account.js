@@ -5,17 +5,20 @@ import PropTypes from 'prop-types';
 import * as api from '../logic/api';
 // Materialize
 import M from 'materialize-css';
+import { useHistory } from 'react-router-dom';
 
 
 const Profile = (props) => {
+    let history = useHistory();
 
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');   
 
     useEffect(() => {
-        
-        api.current_user()
+
+        if (props.loggedIn) {
+            api.current_user()
             .then(result => {
                 if (result.status == 200) {
                     setEmail(result.data.username);
@@ -27,7 +30,8 @@ const Profile = (props) => {
             .catch(error => {
                 console.log("error:");
                 console.log(error);
-            });       
+            });    
+        }    
 
     }, [])
 

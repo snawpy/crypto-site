@@ -1,11 +1,14 @@
 // React
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link, useHistory } from "react-router-dom";
 
 
 const CryptoList = (props) => {
 
-    if (props.display && props.coins) {
+    let history = useHistory();
+
+    if (props.coins) {
         return (
             <div className="coin-list-container">
                 {renderTable()}
@@ -43,13 +46,20 @@ const CryptoList = (props) => {
             <tr key={coin.id} className="coin-list-coin">
                 <td>{coin.market_cap_rank}</td>
                 <td>
-                    <div onClick={() => props.onCryptoSelected(coin)} className="coin-list-coin-name-group">
+                    <div onClick={() => onCryptoClicked(coin)} className="coin-list-coin-name-group">
                         <img src={coin.image} alt="" className="crypto-list-coin-image"></img>
                         <span>
                             <span>{coin.name}</span> <span className="coin-list-coin-symbol">{coin.symbol.toUpperCase()}</span>
-                        </span>
-                        
+                        </span>                        
                     </div>
+                    {/* <div className="coin-list-coin-name-group">
+                        <Link to={`/coins/${coin.id}`}>
+                            <img src={coin.image} alt="" className="crypto-list-coin-image"></img>
+                            <span>
+                                <span>{coin.name}</span> <span className="coin-list-coin-symbol">{coin.symbol.toUpperCase()}</span>
+                            </span> 
+                        </Link>                         
+                    </div> */}
                 </td>
                 <td>${coin.current_price.toLocaleString()}</td>
                 <td>${coin.market_cap.toLocaleString()}</td>
@@ -57,6 +67,14 @@ const CryptoList = (props) => {
                 <td>{coin.circulating_supply.toLocaleString()}</td>
             </tr>
         );
+    }
+
+
+    function onCryptoClicked(coin) {
+        // props.onCryptoSelected(coin)
+        
+        // window.location.href=`/coins/${coin.id}`;
+        history.push(`/coins/${coin.id}`);
     }
 
 

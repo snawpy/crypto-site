@@ -5,9 +5,12 @@ import PropTypes from 'prop-types';
 // Component
 import NavButton from './nav-button';
 import AccountDropDown from './drop-down';
+import { useHistory } from 'react-router-dom';
 
 
 const NavBarTop = props => {
+
+    let history = useHistory();
 
     const [email, setEmail] = useState('');
 
@@ -16,7 +19,8 @@ const NavBarTop = props => {
                 <div className="nav-wrapper">
                     <div className="col s12">
 
-                        <a href="#" onClick={() => {if (props.displayMode !== props.page.cryptoList) props.onSetDisplayMode(props.page.cryptoList)}} className="brand-logo">Kimoski</a>
+                        {/* <a onClick={() => window.location.href="/"} className="brand-logo">Crypto Simp</a> */}
+                        <a onClick={() => history.push("/")} className="brand-logo">Crypto Simp</a>
                         <a href="#" data-target="side-nav" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
@@ -43,7 +47,6 @@ const NavBarTop = props => {
                 <React.Fragment>
                     <AccountDropDown 
                         loggedIn={props.loggedIn}
-                        onSetDisplayMode={(value) => props.onSetDisplayMode(value)}
                         page={props.page}
                         id={id}
                         constrainWidth={false}

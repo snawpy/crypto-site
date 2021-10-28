@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import * as utils from '../logic/utils';
 import * as api from '../logic/api';
 import * as externalApi from '../logic/external-api';
+import { useHistory } from "react-router-dom";
 // Materialize
 import M from 'materialize-css';
 
@@ -16,6 +17,8 @@ const Search = props => {
     const searchRef = useRef(null);
     const [searchTerm, setSearchTerm] = useState('');
     const [filteredCoins, setFilteredCoins] = useState([]);
+
+    let history = useHistory();
     
 
     useEffect(() => {
@@ -134,11 +137,12 @@ const Search = props => {
     function onCryptoSelected(coin) {
         // todo: consider adding loading state somewhere or move into then
         mInstance.current.close();
+        history.push(`/coins/${coin.id}`)
 
         //to add:
         // props.setLoad(true)
         
-        props.onCryptoSelected(coin);
+        // props.onCryptoSelected(coin);
     }
 
 

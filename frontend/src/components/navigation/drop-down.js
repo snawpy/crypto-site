@@ -2,12 +2,14 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import M from 'materialize-css';
+import { useHistory } from 'react-router-dom';
 
 
 const AccountDropDown = props => {
 
     const instance = useRef(null);
     const element = useRef(null);
+    let history = useHistory();
 
     useEffect(() => {
         
@@ -36,10 +38,10 @@ const AccountDropDown = props => {
                     </a>
 
                     <ul id={props.id} className="dropdown-content">
-                        <li><a href="#!" onClick={() => props.onSetDisplayMode(props.page.profile)} >Personal Info</a></li>
-                        <li><a href="#!" onClick={() => props.onSetDisplayMode(props.page.password)}>Update Password</a></li>
+                        <li><a onClick={() => history.push("/account")}>Personal Info</a></li>
+                        <li><a onClick={() => history.push("/password")}>Update Password</a></li>                        
                         <li className="divider"></li>
-                        <li><a href="#!" onClick={() => props.onSetDisplayMode(props.page.deleteAccount)} className="">Delete Account</a></li>
+                        <li><a onClick={() => history.push("/delete-account")} className="">Delete Account</a></li>
                     </ul>
                 </li>
     

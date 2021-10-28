@@ -34,7 +34,7 @@ const CryptoChart = (props) => {
     )
 
     function fetchChartData() {
-        externalApi.coinPricesForChart(props.coin.id).then(result => {
+        externalApi.coinPricesForChart(props.coin).then(result => {
 
             if (result && result.data && result.data.prices) {
                 let times = [];

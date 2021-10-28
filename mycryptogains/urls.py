@@ -21,6 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/cryptotracker/', include('cryptotracker.urls')),
     path('api/users/', include('user.urls')),
-    path('', include('frontend.urls')) # maybe rename this app to home ?
-    
+    path('', include('frontend.urls')) # maybe rename this app to home ?    
 ]
