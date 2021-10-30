@@ -8,15 +8,21 @@ import * as externalApi from '../logic/external-api';
 
 const CryptoList = (props) => {
 
+
     const [cryptoListCoins, setCryptoListCoins] = useState(null); 
     let history = useHistory();
 
     useEffect(() => {
         loadCryptoListCoins();
 
-        setInterval(() => {
+        const cryptoLoader = setInterval(() => {
             loadCryptoListCoins();
         }, 60000);
+
+        return () => {
+            clearInterval(cryptoLoader);            
+        }
+
     }, [])
 
     if (cryptoListCoins) {
