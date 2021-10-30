@@ -16,12 +16,20 @@ export function allCoinsBasic() {
     return requests.GetAnonymous('https://api.coingecko.com/api/v3/coins/list');
 }
 
+
+
 export function coinPrice(coinId, currenciesList) {
 
-    const coinsFormatted = currenciesList.join('%2C');
+    const currenciesFormatted = currenciesList.join('%2C');
 
-    return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${coinsFormatted}`)
+    // return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currenciesFormatted}`)
+
+    return requests.GetAnonymous(
+        `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currenciesFormatted}&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`
+    );
 }
+
+
 
 export function coinPricesForChart(coinId) {
     return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=USD&days=7`);

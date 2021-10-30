@@ -1,15 +1,26 @@
 // React
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 // Components
 import CryptoChart from './crypto-chart';
-import { useLocation, useParams } from "react-router-dom"; 
+import { useLocation, useParams } from "react-router-dom";
+// Logic
+import * as externalApi from '../logic/external-api';
 
 
 const CryptoViewer = (props) => {
-    // console.log(props);
+
+    const [coin, setCoin] = useState(null);
+
+    useEffect( () => {
+        if (params && params.coin) {
+            externalApi.coinPrice(params.coin, ["usd"]).then(result => {
+                console.log(result);
+            })
+        }
+    }, [])
+
     const params = useParams();
-    // console.log(params)
 
     if (params && params.coin) {
         // change this to load with coin or name passed in since we m
@@ -29,24 +40,12 @@ const CryptoViewer = (props) => {
     }
     else {
         console.log("nothing here m8");
+        return (
+            <div>
+                hehhe
+            </div>
+        )
     }
-
-    // const location = useLocation();
-    // console.log(location);
-
-
-    // console.log(hehe.coin);
-    // console.log("nothing here m8");
-    // return null;
-
-    // return (
-    //     <div>
-    //         hehhe
-    //     </div>
-    // )
-
-
-
 
 }
 

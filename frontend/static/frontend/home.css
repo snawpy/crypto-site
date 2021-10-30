@@ -194,11 +194,20 @@ tr, td {
 }
 
 
-/* Chart */
-
-.chart-container {
-    max-width: 800px;
+/* ----------------------- crypto-viewer ----------------------- */
+.coin-viewer {
+    margin: auto;
+    width: 80%;
 }
+
+
+/* ----------------------- Chart ----------------------- */
+
+/* .chart-container {
+    max-width: 800px;
+} */
+
+
 
 
 

@@ -163,18 +163,6 @@ const Home = props => {
         )
     }
 
-    function renderIfLoggedIn(page) {
-        if (loggedIn) {
-            return page;
-        }
-
-        return (
-            <CryptoList
-                coins={cryptoListCoins}
-                onCryptoSelected={(coin) => onCryptoSelected(coin)} />
-        )
-    }
-
     // Initialise -------------------------------------------------------------------
     function loadCryptoListCoins() {
         console.log("loading crypto again");
