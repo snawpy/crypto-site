@@ -40,7 +40,6 @@ const Home = props => {
 
     const [loggedIn, setLoggedIn] = useState(false);
     const [searchCoins, setSearchCoins] = useState(null); 
-    const [cryptoListCoins, setCryptoListCoins] = useState(null); 
 
     const [selectedCrypto, setSelectedCrypto] = useState([]);
 
@@ -49,12 +48,6 @@ const Home = props => {
         if (cookies.getUserToken()) {
             setLoggedIn(true);
         }
-
-        loadCryptoListCoins();
-
-        setInterval(() => {
-            loadCryptoListCoins();
-        }, 60000);
 
         loadSearchCoins();
 
@@ -123,9 +116,7 @@ const Home = props => {
                     <Switch>
 
                         <Route exact path="/">
-                            <CryptoList
-                                coins={cryptoListCoins}
-                                onCryptoSelected={(coin) => onCryptoSelected(coin)} />
+                            <CryptoList onCryptoSelected={(coin) => onCryptoSelected(coin)} />
                         </Route>
 
                         <Route exact path="/coins/:coin">
@@ -143,17 +134,13 @@ const Home = props => {
                         <Route exact path="/password">                            
                             {loggedIn && <Password loggedIn={loggedIn}/>}
                             {!loggedIn &&                             
-                                <CryptoList
-                                    coins={cryptoListCoins}
-                                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
+                                <CryptoList onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
                         </Route>
 
                         <Route exact path="/delete-account">                            
                             {loggedIn && <DeleteAccount loggedIn={loggedIn}/>}
                             {!loggedIn &&                             
-                                <CryptoList
-                                    coins={cryptoListCoins}
-                                    onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
+                                <CryptoList onCryptoSelected={(coin) => onCryptoSelected(coin)} />}
                         </Route> 
 
 
@@ -164,12 +151,6 @@ const Home = props => {
     }
 
     // Initialise -------------------------------------------------------------------
-    function loadCryptoListCoins() {
-        console.log("loading crypto again");
-        externalApi.coinsPaginated(100, 1).then(result => {
-            setCryptoListCoins(result.data)
-        });
-    }
 
     function loadSearchCoins() {
         externalApi.allCoins().then(result => {

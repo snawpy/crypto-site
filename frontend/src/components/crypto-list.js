@@ -1,14 +1,25 @@
 // React
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from "react-router-dom";
+// Logic
+import * as externalApi from '../logic/external-api';
 
 
 const CryptoList = (props) => {
 
+    const [cryptoListCoins, setCryptoListCoins] = useState(null); 
     let history = useHistory();
 
-    if (props.coins) {
+    useEffect(() => {
+        loadCryptoListCoins();
+
+        setInterval(() => {
+            loadCryptoListCoins();
+        }, 60000);
+    }, [])
+
+    if (cryptoListCoins) {
         return (
             <div className="coin-list-container">
                 {renderTable()}
@@ -20,7 +31,7 @@ const CryptoList = (props) => {
 
     function renderTable() {
 
-        const coins = props.coins.map(coin => renderCoin(coin));
+        const coins = cryptoListCoins.map(coin => renderCoin(coin));
         return (
             <table className="coin-list-all-coins">
                 <thead>
@@ -75,6 +86,13 @@ const CryptoList = (props) => {
         
         // window.location.href=`/coins/${coin.id}`;
         history.push(`/coins/${coin.id}`);
+    }
+
+    function loadCryptoListCoins() {
+        console.log("loading crypto again");
+        externalApi.coinsPaginated(100, 1).then(result => {
+            setCryptoListCoins(result.data)
+        });
     }
 
 
