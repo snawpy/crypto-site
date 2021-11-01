@@ -22,8 +22,6 @@ export function coinPrice(coinId, currenciesList) {
 
     const currenciesFormatted = currenciesList.join('%2C');
 
-    // return requests.GetAnonymous(`https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currenciesFormatted}`)
-
     return requests.GetAnonymous(
         `https://api.coingecko.com/api/v3/simple/price?ids=${coinId}&vs_currencies=${currenciesFormatted}&include_market_cap=true&include_24hr_vol=true&include_24hr_change=true&include_last_updated_at=true`
     );

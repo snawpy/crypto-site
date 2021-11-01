@@ -19,8 +19,9 @@ const NavBarTop = props => {
                 <div className="nav-wrapper">
                     <div className="col s12">
 
+                        <a href="/" className="brand-logo">Crypto Simp</a>
                         {/* <a onClick={() => window.location.href="/"} className="brand-logo">Crypto Simp</a> */}
-                        <a onClick={() => history.push("/")} className="brand-logo">Crypto Simp</a>
+                        {/* <a onClick={() => history.push("/")} className="brand-logo">Crypto Simp</a> */}
                         <a href="#" data-target="side-nav" className="sidenav-trigger"><i className="material-icons">menu</i></a>
                         
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
