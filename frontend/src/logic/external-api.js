@@ -17,8 +17,8 @@ export function allCoinsBasic() {
 }
 
 
-
-export function coinPrice(coinId, currenciesList) {
+// to be removed maybe ? can just use advance for everything
+export function coinInfoSimple(coinId, currenciesList) {
 
     const currenciesFormatted = currenciesList.join('%2C');
 
@@ -27,8 +27,13 @@ export function coinPrice(coinId, currenciesList) {
     );
 }
 
+export function coinInfoAdvance(coinId, marketData=true, communityData=false, developerData=false, tickers=false) {
+    return requests.GetAnonymous(
+        `https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=${tickers}&market_data=${marketData}&community_data=${communityData}&developer_data=${developerData}&sparkline=false`
+    );
+}
 
-
+// to be removed maybe? can just use advance for everything
 export function coinPricesForChart(coinId) {
     return requests.GetAnonymous(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=USD&days=7`);
 }

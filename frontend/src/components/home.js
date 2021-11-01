@@ -175,10 +175,6 @@ const Home = props => {
 
     function onCryptoSelected(coin) {
 
-        // externalApi.coinPrice(coin.id, ["usd"]).then(result => {
-        //     console.log(result);
-        // })
-
         setSelectedCrypto(coin);
         setDisplayMode(page.cryptoViewer);
 
