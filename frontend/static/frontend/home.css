@@ -253,8 +253,8 @@ tr, td {
 
 /* .crypto-search-container, .crypto-search-container input {
     color: white;
-} */
-/* .crypto-search-container input {
+}
+.crypto-search-container input {
     color: white;
     border: 2px solid lightgrey !important;
     border-radius: 4px;
@@ -262,13 +262,16 @@ tr, td {
     width: calc(100% - 2.5rem);
     margin-bottom: 0;
     transition: box-shadow, border-color 0.15s;
-} */
+}
 
 
-/* .crypto-search-container i.prefix.active {
+.crypto-search-container i.prefix.active {
     color: white !important;
 } */
 
+.search-result-coin:hover {
+    background-color: rgba(0, 0, 0, 0) !important;
+}
 
 
 

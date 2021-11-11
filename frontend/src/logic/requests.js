@@ -31,7 +31,6 @@ export function request(requestMethod, url, postBody=null, requiresLoggedInUser=
     let ok = null;
 
     return fetch(url, requestData).then(response => {
-        // console.log(response)
         status = response.status;
         statusText = response.statusText;
         ok = response.ok;

@@ -8,7 +8,6 @@ import * as externalApi from '../logic/external-api';
 
 const CryptoList = (props) => {
 
-
     const [cryptoListCoins, setCryptoListCoins] = useState(null); 
     let history = useHistory();
 

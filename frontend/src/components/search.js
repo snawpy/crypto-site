@@ -8,9 +8,17 @@ import * as externalApi from '../logic/external-api';
 import { useHistory } from "react-router-dom";
 // Materialize
 import M from 'materialize-css';
+// Common component
+import useKeyPress from '../components/common/use-key-press';
 
+
+// find error causing when clicking cocain crypto
+// add modals folder and move search/login/register to it
 
 const Search = props => {
+
+    const downKeyPress = useKeyPress("ArrowDown");
+    const upKeyPress = useKeyPress("ArrowUp");
 
     const searchModalElement = useRef(null);
     const mInstance = useRef(null);
@@ -20,8 +28,23 @@ const Search = props => {
 
     let history = useHistory();
     
+    useEffect(() => {
+        if (upKeyPress) {
+            console.log("upKeyPress changed");
+        }
+        
+    }, [upKeyPress]);
+
+        
+    useEffect(() => {
+        if (downKeyPress) {
+            console.log("upKeyPress changed");
+        }
+    }, [downKeyPress]);
+
 
     useEffect(() => {
+        console.log("new search instance");
     
         if (searchModalElement) {
             mInstance.current = M.Modal.init(searchModalElement.current, {
@@ -130,8 +153,10 @@ const Search = props => {
         }
     }
     function onClose() {
+        
         setSearchTerm('');
         setFilteredCoins([]);
+
     }
 
     function onCryptoSelected(coin) {
