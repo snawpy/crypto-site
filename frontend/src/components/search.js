@@ -2,9 +2,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 // Logic
-import * as utils from '../logic/utils';
-import * as api from '../logic/api';
-import * as externalApi from '../logic/external-api';
 import { useHistory } from "react-router-dom";
 // Materialize
 import M from 'materialize-css';

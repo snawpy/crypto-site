@@ -7,7 +7,7 @@ export function formatNumberToFixedLocale(number) {
         number.toLocaleString(
             undefined, 
             {
-                minimumFractionDigits: 2,
+                minimumFractionDigits: 0,
                 maximumFractionDigits: 2
             })
     );

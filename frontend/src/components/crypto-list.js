@@ -95,6 +95,7 @@ const CryptoList = (props) => {
 
     function loadCryptoListCoins() {
         externalApi.coinsPaginated(100, 1).then(result => {
+            // console.log(result.data)
             setCryptoListCoins(result.data)
         });
     }

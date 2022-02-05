@@ -153,6 +153,7 @@ const Home = props => {
     // Initialise -------------------------------------------------------------------
 
     function loadSearchCoins() {
+        // change to us the basic allCoins or call the coinsPaginated one 4 times
         externalApi.allCoins().then(result => {
             // to do update checks
             if (result && result.ok && result.data) {
