@@ -15,7 +15,7 @@ import Login from './login';
 import Search from './search';
 // Logic
 // import * as api from '../logic/api';
-import * as externalApi from '../logic/external-api';
+import * as api from '../logic/api';
 import * as cookies from '../logic/cookies';
 
 import { BrowserRouter as Router, Route, Switch, useLocation, Redirect } from "react-router-dom"; 
@@ -153,23 +153,26 @@ const Home = props => {
     // Initialise -------------------------------------------------------------------
 
     function loadSearchCoins() {
-        // change to us the basic allCoins or call the coinsPaginated one 4 times
-        externalApi.allCoins().then(result => {
-            // to do update checks
+
+        api.getAllCrypto().then(result => {
             if (result && result.ok && result.data) {
                 setSearchCoins(result.data.coins);
             }
             else {
                 //todo: do something here to let user know whats happening
-                console.log("error loading coins");
+                console.log("error: Home > api.getAllCrypto()");
+                console.log("result:");
+                console.log(result);
             }
+            
         })
         .catch(error => {
-            console.log("error occured");
+            console.log("Catch: Home > api.getAllCrypto()");
             console.log(error);
             // todo:
             // update site to let user know somethings went wrong
         });
+
     }
 
     // Events ------------------------------------------------------------------------

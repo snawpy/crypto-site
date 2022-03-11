@@ -9,3 +9,7 @@ class Crypto(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     # User = blabla to be added after finish tut
 
+
+class AllCoinsExternal(models.Model):
+    coins = models.TextField()
+    # coins = models.JSONField() #todo when switch over to mysql from sqlite

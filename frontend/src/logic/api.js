@@ -8,29 +8,7 @@ import * as requests from './requests';
 // crypto app
 // todo: update to use requests
 export function getAllCrypto() {
-    console.log("calling api");
-    fetch("api/cryptotracker").then(response => {
-        console.log(response);
-        if (response.status == 200) {
-            return ({
-                status: response.status,
-                statusText: response.statusText,
-                content: response.json()
-            });
-        }
-        else {
-            return ({ 
-                status: response.status,
-                statusText: response.statusText
-            });
-        }
-    })
-    .then(data => {
-        console.log(data);
-    })
-    .catch(err => {
-        console.log(err);
-    });
+    return requests.GetAnonymous('api/cryptotracker/all-crypto/');
 }
 
 
